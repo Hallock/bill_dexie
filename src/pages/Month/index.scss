@@ -35,6 +35,7 @@
 
       .date {
         display: flex;
+        justify-content: center;
         align-items: center;
         margin-bottom: 25px;
         font-size: 16px;
@@ -60,7 +61,8 @@
   .twoLineOverview {
     display: flex;
     justify-content: space-between;
-    width: 250px;
+
+
 
     .item {
       display: flex;
