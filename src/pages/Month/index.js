@@ -3,44 +3,22 @@ import './index.scss';
 import { useState, useMemo, useEffect } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import _ from 'lodash';
-import { getBillList } from '@/store/modules';
+import DailyBill from '@/pages/Month/DailyBill';
 
 
 const Month = () => {
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getBillList(dispatch));
-  }, [dispatch]);
+  const billList = useSelector(state => state.bill.billList);
+  //console.log(billList);
 
   const [dateVisible, setDateVisible] = useState(false);
 
   const [chooseMonth, setChooseMonth] = useState(() => {
     return dayjs(new Date()).format('YYYY-MM');
   });
-  // console.log(chooseMonth);
-
-  useState(null)
-
-  const deleteConfirm = (date) => {
-    setDateVisible(false);
-     const chooseDate = dayjs(date).format('YYYY-MM');
-    //console.log(chooseDate);
-    setChooseMonth(chooseDate);
-    if (monthGroup[chooseDate]) {
-      setMonthGroupResults((prevResults) => {
-        const newResults = monthGroup[chooseDate];
-        return newResults.length !== prevResults.length || !_.isEqual(newResults, prevResults) ? newResults : prevResults;
-      });
-     // setMonthGroupResults(monthGroup[chooseDate])
-    }
-  };
-
-  const billList = useSelector(state => state.bill.billList);
-  //console.log(billList);
+    // console.log(chooseMonth);
 
   const monthGroup = useMemo(() => {
     return _.groupBy(billList, (item) => {
@@ -51,9 +29,12 @@ const Month = () => {
   //console.log(monthGroup);
 
   const [monthGroupResults, setMonthGroupResults] = useState([]);
-  const filterDate= monthGroupResults.map(item=>dayjs(item.date).format('YYYY-MM'));
-  const newFilterDate = [...new Set(filterDate)]
-  // console.log(newFilterDate[0]);
+   // console.log(monthGroupResults);
+
+  const filterDate = monthGroupResults.map(item => dayjs(item.date).format('YYYY-MM'));
+
+  const newFilterDate = [...new Set(filterDate)];
+   // console.log(newFilterDate[0]);
 
   const monthBudgetCount = useMemo(() => {
     const income = monthGroupResults.filter(item => item.type === 'income').reduce((acc, value) => acc + value.money, 0);
@@ -76,8 +57,36 @@ const Month = () => {
     }
   }, [monthGroup]);
 
+  const dayGroup=useMemo(() => {
+    const dayGroupData = _.groupBy(monthGroupResults,(item) => dayjs(item.date).format('YYYY-MM-DD'));
+    const keys = Object.keys(dayGroupData)
+    // console.log(dayGroupData);
+    // console.log(keys);
+    return {
+      dayGroupData,
+      keys
+    }
+  },[monthGroupResults])
+  // console.log(dayGroup);
+  // console.log(dayGroup.dayGroupData);
+
+  const deleteConfirm = (date) => {
+    setDateVisible(false);
+    const chooseDate = dayjs(date).format('YYYY-MM');
+    // console.log(chooseDate);
+    setChooseMonth(chooseDate);
+
+    if (monthGroup[chooseDate]) {
+      setMonthGroupResults((prevResults) => {
+        const newResults = monthGroup[chooseDate];
+        return newResults.length !== prevResults.length || !_.isEqual(newResults, prevResults) ? newResults : prevResults;
+      });
+    }
+    // setMonthGroupResults(chooseDate)
+  };
+
   return (<div className='monthlyBill'>
-    <NavBar className='nav' backArrow={true}>
+    <NavBar className='nav' backArrow={false}>
       月度收支
     </NavBar>
     <div className='content'>
@@ -93,15 +102,15 @@ const Month = () => {
         {/* 统计区域 */}
         <div className='twoLineOverview'>
           <div className='item'>
-            <span className='money'>{newFilterDate[0]!==chooseMonth?0:monthBudgetCount.pay.toFixed(2)}</span>
+            <span className='money'>{newFilterDate[0] !== chooseMonth ? 0 : monthBudgetCount.pay.toFixed(2)}</span>
             <span className='type'>支出</span>
           </div>
           <div className='item'>
-            <span className='money'>{newFilterDate[0]!==chooseMonth?0:monthBudgetCount.income.toFixed(2)}</span>
+            <span className='money'>{newFilterDate[0] !== chooseMonth ? 0 : monthBudgetCount.income.toFixed(2)}</span>
             <span className='type'>收入</span>
           </div>
           <div className='item'>
-            <span className='money'>{newFilterDate[0]!==chooseMonth?0:monthBudgetCount.total.toFixed(2)}</span>
+            <span className='money'>{newFilterDate[0] !== chooseMonth ? 0 : monthBudgetCount.total.toFixed(2)}</span>
             <span className='type'>结余</span>
           </div>
         </div>
@@ -117,6 +126,18 @@ const Month = () => {
           onClose={() => setDateVisible(false)}
         />
       </div>
+      {/* 单日列表统计 */}
+      {
+        dayGroup.keys.map(key => {
+          // console.log(key);
+          // console.log(chooseDay);
+          const keyMonth = dayjs(key).format('YYYY-MM')
+          return(
+            keyMonth === chooseMonth &&<DailyBill key={key} date={key} billList={dayGroup.dayGroupData[key]} chooseMonth={chooseMonth} />
+          )
+        })
+      }
+
     </div>
   </div>);
 };

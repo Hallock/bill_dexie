@@ -103,7 +103,35 @@
       "money": 10000,
       "date": "2024-12-28T16:00:00.000Z",
       "useFor": "salary",
-      "id": 21
+      "id": 22
+    },
+    {
+      "type": "income",
+      "money": 2000,
+      "date": "2024-12-27T16:00:00.000Z",
+      "useFor": "salary",
+      "id": 23
+    },
+    {
+      "type": "pay",
+      "money": -1030,
+      "date": "2024-12-27T16:00:00.000Z",
+      "useFor": "food",
+      "id": 24
+    },
+    {
+      "type": "income",
+      "money": 2000,
+      "date": "2025-01-07T16:00:00.000Z",
+      "useFor": "salary",
+      "id": 23
+    },
+    {
+      "type": "pay",
+      "money": -1030,
+      "date": "2025-01-07T16:00:00.000Z",
+      "useFor": "food",
+      "id": 24
     }
   ]
 }
