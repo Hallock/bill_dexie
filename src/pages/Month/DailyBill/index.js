@@ -5,7 +5,7 @@ import Icon from '@/components/Icon';
 import {billTypeToName} from '@/contants';
 
 
-const DailyBill = ({ date, billList,chooseDay }) => {
+const DailyBill = ({ date, billList }) => {
   // console.log(billList);
   // console.log('chooseDay:',chooseDay);
   // console.log('key:',date);
@@ -20,13 +20,13 @@ const DailyBill = ({ date, billList,chooseDay }) => {
   const [visible,setVisible]=useState(false);
 
   return (
-  <div className={classNames('dailyBill')}>
+  <div className={classNames('dailyBill')} >
     <div className='header'>
-      <div className='dateIcon'>
+      <div className='dateIcon' onClick={() => setVisible(!visible)}>
         <span className='date'>{date}</span>
         <span className={classNames('arrow', visible && 'expand')} onClick={() => setVisible(!visible)}></span>
       </div>
-      <div className='oneLineOverview'>
+      <div className='oneLineOverview' onClick={() => setVisible(!visible)}>
         <div className='pay'>
           <span className='type'>支出</span>
           <span className='money'>{dayResult.pay.toFixed(2)}</span>

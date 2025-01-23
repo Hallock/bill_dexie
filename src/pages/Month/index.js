@@ -133,7 +133,7 @@ const Month = () => {
           // console.log(chooseDay);
           const keyMonth = dayjs(key).format('YYYY-MM')
           return(
-            keyMonth === chooseMonth &&<DailyBill key={key} date={key} billList={dayGroup.dayGroupData[key]} chooseMonth={chooseMonth} />
+            keyMonth === chooseMonth &&<DailyBill key={key} date={key} billList={dayGroup.dayGroupData[key]} />
           )
         })
       }
