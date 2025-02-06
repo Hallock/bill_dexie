@@ -15,7 +15,7 @@ const New = () => {
   const [billType, setBillType] = useState('pay');
 
   const dateConfirm = (value) => {
-    console.log(value);
+    // console.log(value);
     setDateVisible(false);
     setDate(value);
   };
@@ -33,7 +33,8 @@ const New = () => {
         useFor:useFor
     }
     // console.log(data);
-      dispatch(addBillList(data));
+    dispatch(addBillList(data));
+    navigate(-1);
   }
 
   return (
@@ -64,9 +65,9 @@ const New = () => {
           <div className='kaForm'>
             <div className='date'>
               <Icon type='calendar' className='icon' />
-              <span className='text' onClick={() => {
-                setDateVisible(true);
-              }}>{dayjs(date).format('YYYY-MM-DD')}</span>
+              <span className='text' onClick={() => {setDateVisible(true);}}>
+                {dayjs(date).format('YYYY-MM-DD')}
+              </span>
               <DatePicker
                 className='kaDate'
                 title='记账日期'
@@ -82,7 +83,7 @@ const New = () => {
                 className='input'
                 placeholder='0.00'
                 type='number'
-                value={money}
+                // value={money}
                 onChange={(newValue) => setMoney(parseFloat(newValue))}
               />
               <span className='iconYuan'>¥</span>
