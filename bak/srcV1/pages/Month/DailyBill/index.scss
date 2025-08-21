@@ -1,0 +1,202 @@
+.dailyBill {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+
+  .header {
+    --ka-text-color: #888c98;
+    padding: 15px 15px 10px 15px;
+
+    .dateIcon {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 21px;
+      margin-bottom: 9px;
+      .arrow {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        margin-top: -3px;
+        margin-left: 9px;
+        border-top: 2px solid #888c98;
+        border-left: 2px solid #888c98;
+        transform: rotate(225deg);
+        transform-origin: center;
+        transition: all 0.3s;
+      }
+      .arrow.expand {
+        transform: translate(0, 2px) rotate(45deg);
+      }
+
+      .date {
+        font-size: 14px;
+      }
+    }
+  }
+  .oneLineOverview {
+    display: flex;
+    justify-content: space-between;
+
+    .pay {
+      flex: 1;
+      .type {
+        font-size: 10px;
+        margin-right: 2.5px;
+        color: #e56a77;
+      }
+      .money {
+        color: var(--ka-text-color);
+        font-size: 13px;
+      }
+    }
+
+    .income {
+      flex: 1;
+      .type {
+        font-size: 10px;
+        margin-right: 2.5px;
+        color: #4f827c;
+      }
+      .money {
+        color: var(--ka-text-color);
+        font-size: 13px;
+      }
+    }
+
+    .balance {
+      flex: 1;
+      margin-bottom: 5px;
+      text-align: right;
+
+      .money {
+        line-height: 17px;
+        margin-right: 6px;
+        font-size: 17px;
+      }
+      .type {
+        font-size: 10px;
+        color: var(--ka-text-color);
+      }
+    }
+  }
+
+  .billList {
+    padding: 15px 10px 15px 15px;
+    border-top: 1px solid #ececec;
+
+    .bill {
+      position: relative; // 添加相对定位
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 43px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease; // 添加过渡效果
+      overflow: hidden; // 隐藏超出部分
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      // 当滑动时，整个账单项向左移动
+      &.swiped {
+        transform: translateX(-60px);
+      }
+
+      .icon {
+        margin-right: 10px;
+        font-size: 25px;
+        flex-shrink: 0; // 防止图标被压缩
+      }
+
+      .detail {
+        flex: 1;
+        padding: 4px 0;
+        min-width: 0; // 允许内容截断
+
+        .billType {
+          display: flex;
+          align-items: center;
+          height: 17px;
+          line-height: 17px;
+          font-size: 14px;
+          padding-left: 4px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .money {
+        font-size: 17px;
+        flex-shrink: 0; // 防止金额被压缩
+        margin-right: 10px; // 为删除按钮留出空间
+
+        &.pay {
+          color: #ff917b;
+        }
+        &.income {
+          color: #4f827c;
+        }
+      }
+
+      .delete-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 60px;
+        background-color: #ff4d4f;
+        color: white;
+        border: none;
+        border-radius: 4px 0 0 4px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1;
+
+        &:hover {
+          background-color: #ff7875;
+        }
+      }
+    }
+  }
+}
+.dailyBill.expand {
+  .header {
+    border-bottom: 1px solid #ececec;
+  }
+  .billList {
+    display: block;
+  }
+}
+
+//.delete-button {
+//  background-color: #ff4d4f;
+//  color: white;
+//  border: none;
+//  border-radius: 4px;
+//  padding: 4px 8px;
+//  font-size: 14px;
+//  cursor: pointer;
+//  margin-left: 10px;
+//
+//  &:hover {
+//    background-color: #ff7875;
+//  }
+//}
+
+// 响应式：在小屏幕上调整删除按钮大小
+@media (max-width: 480px) {
+  .dailyBill .billList .bill {
+    .delete-button {
+      width: 80px;
+      font-size: 12px;
+    }
+
+    &.swiped {
+      transform: translateX(-50px);
+    }
+  }
+}

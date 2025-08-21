@@ -1,0 +1,128 @@
+.register-page {
+  --ka-text-color: #191d26;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fee392 0%, #fdd56f 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  justify-content: center;
+
+
+  .register-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-decoration {
+      height: 4px;
+      width: 40px;
+      background: linear-gradient(90deg, #69ae78, #4da06d);
+      border-radius: 2px;
+      margin: 0 auto 24px;
+    }
+
+    h2 {
+      color: var(--ka-text-color);
+      margin-bottom: 32px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .adm-form-item {
+      margin-bottom: 24px;
+      position: relative;
+
+      .adm-form-item-label {
+        color: #4E5969;
+        font-size: 14px;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .adm-input {
+        width: auto;
+        height: 20px;
+        border-radius: 10px;
+        border: 1px solid #E5E6EB;
+        padding: 10px 10px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+
+        &:focus-within {
+          border-color: #69ae78;
+          box-shadow: 0 0 0 4px rgba(105, 174, 120, 0.1);
+        }
+      }
+
+      .input-icon {
+        position: absolute;
+        right: 16px;
+        top: 38px;
+        color: #86909c;
+      }
+    }
+    .adm-button {
+      height: 48px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+      margin-right: 4px;
+
+      &.adm-button-primary {
+        background-color: #69ae78;
+        border-color: #69ae78;
+
+        &:hover {
+          background: #5a9a68;
+          transform: translateY(-2px);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+
+      &:not(.adm-button-primary) {
+        color: #4E5969;
+        background-color: #F2F3F5;
+        border-color: #F2F3F5;
+      }
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #4E5969;
+
+      a {
+        color: #69ae78;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #5a9a68;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

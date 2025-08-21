@@ -11,7 +11,7 @@ import DailyBill from '@/pages/Month/DailyBill';
 const Month = () => {
 
   const billList = useSelector(state => state.bill.billList);
-  //console.log(billList);
+  // console.log(billList);
 
   const [dateVisible, setDateVisible] = useState(false);
 
@@ -22,6 +22,10 @@ const Month = () => {
 
   const monthGroup = useMemo(() => {
     return _.groupBy(billList, (item) => {
+      if (!item || !item.date) {
+        console.warn('Invalid billList item:', item);
+        return 'Unknown'; // 返回默认值
+      }
       return dayjs(item.date).format('YYYY-MM');
     });
   }, [billList]);
@@ -38,6 +42,7 @@ const Month = () => {
 
   const monthBudgetCount = useMemo(() => {
     const income = monthGroupResults.filter(item => item.type === 'income').reduce((acc, value) => acc + value.money, 0);
+
     const pay = monthGroupResults.filter(item => item.type === 'pay').reduce((acc, value) => acc + value.money, 0);
     return {
       income,
@@ -85,11 +90,12 @@ const Month = () => {
     // setMonthGroupResults(chooseDate)
   };
 
-  return (<div className='monthlyBill'>
-    <NavBar className='nav' backArrow={false}>
-      月度收支
-    </NavBar>
-    <div className='content'>
+  return (
+    <div className='monthlyBill'>
+      <NavBar className='nav' backArrow={false}>
+        月度收支
+      </NavBar>
+
       <div className='header'>
         {/* 时间切换区域 */}
         <div className='date' onClick={() => setDateVisible(true)}>
@@ -126,20 +132,22 @@ const Month = () => {
           onClose={() => setDateVisible(false)}
         />
       </div>
-      {/* 单日列表统计 */}
-      {
-        dayGroup.keys.map(key => {
-          // console.log(key);
-          // console.log(chooseDay);
-          const keyMonth = dayjs(key).format('YYYY-MM')
-          return(
-            keyMonth === chooseMonth &&<DailyBill key={key} date={key} billList={dayGroup.dayGroupData[key]} />
-          )
-        })
-      }
 
+      <div className='content'>
+          {/* 单日列表统计 */}
+          {
+            dayGroup.keys.map(key => {
+              // console.log(key);
+              // console.log(chooseDay);
+              const keyMonth = dayjs(key).format('YYYY-MM')
+              return (
+                keyMonth === chooseMonth && <DailyBill key={key} date={key} billList={dayGroup.dayGroupData[key]} />
+              )
+            })
+          }
+      </div>
     </div>
-  </div>);
+  );
 };
 
 export default Month;

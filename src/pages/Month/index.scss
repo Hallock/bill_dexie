@@ -16,53 +16,42 @@
     }
   }
 
-  .content {
-    height: 573px;
-    padding: 0 10px;
-    overflow-y: scroll;
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
-    }
+  > .header {
+    height: 135px;
+    padding: 20px 20px 0px 18.5px;
+    margin: 0 10px;
+    // background-image: url('../../assets/images/month-bg.png');
+    background-color: #ffe28c;
+    background-size: 100% 100%;
 
-    > .header {
-      height: 135px;
-      padding: 20px 20px 0px 18.5px;
-      margin-bottom: 10px;
-      background-image: url(https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/reactbase/ka/month-bg.png);
-      background-size: 100% 100%;
+    .date {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+      font-size: 16px;
 
-      .date {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 25px;
-        font-size: 16px;
-
-        .arrow {
-          display: inline-block;
-          width: 7px;
-          height: 7px;
-          margin-top: -3px;
-          margin-left: 9px;
-          border-top: 2px solid #121826;
-          border-left: 2px solid #121826;
-          transform: rotate(225deg);
-          transform-origin: center;
-          transition: all 0.3s;
-        }
-        .arrow.expand {
-          transform: translate(0, 2px) rotate(45deg);
-        }
+      .arrow {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin-top: -3px;
+        margin-left: 9px;
+        border-top: 2px solid #121826;
+        border-left: 2px solid #121826;
+        transform: rotate(225deg);
+        transform-origin: center;
+        transition: all 0.3s;
+      }
+      .arrow.expand {
+        transform: translate(0, 2px) rotate(45deg);
       }
     }
   }
+
   .twoLineOverview {
     display: flex;
     justify-content: space-between;
-
-
 
     .item {
       display: flex;
@@ -81,4 +70,17 @@
       }
     }
   }
+
+
+  .content {
+    height: calc(100% - 200px);
+    padding: 0 10px;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+  }
 }
+
